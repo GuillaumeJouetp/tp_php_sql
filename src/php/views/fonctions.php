@@ -53,3 +53,25 @@ function displaySubjects($bdd,$n){
         );
     }
 }
+
+function displaySubjectsAndResponse($bdd,$n){
+    /*Récupère les n derniers sujets ajouté sa la bdd ainsi que leurs réponses*/
+    $subjects = recupereSubjects($bdd,$n);
+    foreach ($subjects as $key=>$elm){
+        echo(
+            "<p>"
+            . $subjects[$key]['content'] ." <br>
+                <em>Posté par</em> <strong>". $subjects[$key]['name'] ."</strong> <em>le ". $subjects[$key]['date'] ." </em>
+            </p>"
+            ."<form action=\"index.php?cible=mainController&function=postResponse\" method=\"post\">
+                <label> <span> Votre réponse : </span>
+                    <br>
+                    <textarea cols=\"100\" rows=\"10\" name=\"content\">Votre réponse</textarea>
+                </label>
+                    <br>
+                <button type=\"submit\">Envoyer</button>
+                <br>
+            </form>"
+        );
+    }
+}

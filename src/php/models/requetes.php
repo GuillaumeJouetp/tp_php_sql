@@ -134,6 +134,20 @@ function get_subjects(PDO $bdd, int $n): array {
 }
 
 /**
+ * Retourne un array contenant les n derniers sujets ajoutés (avec le contenu, le prenom de la personne qui l'a ecrit en utilisant une jointure de table, la date du post et le contenue des réponses en utilisant une jointure de table double)
+ * @param PDO $bdd
+ * @param int $n
+ * @return array
+ */
+
+function get_subjects_and_responses(PDO $bdd, int $n): array {
+
+    $statement = $bdd->prepare('SELECT subjects.content,subjects.date,users.name FROM subjects INNER JOIN users ON subjects.user_id = users.id ORDER BY date DESC LIMIT '.$n);
+    $statement->execute();
+    return $statement->fetchAll();
+}
+
+/**
  * Retourne le prenom d'un user ciblant son id
  * @param PDO $bdd
  * @param int $id

@@ -37,3 +37,9 @@ Freezer :
 mail : freezer@namek.com
 mdp  : AmoiLes7boulesDeCristals
 ````
+
+- La page accueil permet de se connecter et d'ajouter des sujets au forum (On ne peut ajouter un sujet si on n'est pas connecté). De plus on peut voir un prévisualisation des 4 derniers sujets en cours a coté (sans les réponses et ordonnés par date)
+- La page inscription permet de s'incrire au forum
+- La page actualité permet de voir les sujets en cours ainsi que leurs réponses. Elle permet aussi de répondre à ces sujets - Sujet 1 : 2 réponses | Sujet 2 : 1 réponse | Sujet 3 : 3 réponses | Sujet 4 : 0 réponses (Page non finie dans la limite de temps, le système de tri n'a pas été fait et on ne peut pas répondre aux sujets : 404)
+- La page contact ne contient rien
+- La page administration ne contient rien
