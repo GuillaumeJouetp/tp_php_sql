@@ -1,0 +1,1 @@
+<span class="emptyPage">Ceci est la page de contact ! un peu vide n'est-ce pas ... &#9785; </span>

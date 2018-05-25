@@ -1,0 +1,12 @@
+#logo {
+    display: block;
+    max-width: 15%;
+    height: auto;
+    margin: auto;
+}
+
+.bienvenue{
+    display: flex;
+    justify-content: flex-end;
+    margin: 2%;
+}

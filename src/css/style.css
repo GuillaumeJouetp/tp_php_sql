@@ -1,0 +1,132 @@
+/*
+Fais le 04/05/2018 par Guillaume JOUET-PASTRE G9A
+Cette page de style :
+        - Ne contient pas de valeurs exprimés en px (pour les divisions qui ne sont pas des conteneurs) afin assurer une certaine responsivité du contenu.
+        - Est appelée après le syle reset.css pour éviter toute différence de style entre les navigateurs.
+        - Ne dépasse pas des conteneurs de 1200 px pour assurer l'ergonomie, les contrastes sont assurés
+        - Les margins, paddings ne dépssent pas 10%
+*/
+
+/*Déclaration de variables pour les couleurs à utilser*/
+html {
+    --orange-isep: rgb(245,161,1);
+    --blue-isep: rgb(0,97,160);
+    --grey-isep: rgb(226,226,226);
+}
+
+body{
+    width: 1200px;
+    font-family: serif;
+    margin: 70px auto 1%;
+}
+
+nav{
+    text-align: end;
+    margin: 1%;
+}
+
+section{
+    display: flex;
+}
+
+aside{
+    margin: 0% 10% 0% 4%;
+}
+
+
+ul{
+    margin-left: 8%;
+}
+
+
+
+.liens{
+    text-decoration: underline;
+    color: var(--blue-isep);
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+a{
+    color: white;
+}
+
+.liens:hover{
+    color: var(--orange-isep);
+}
+
+em{
+    font-style: italic;
+}
+
+strong{
+    font-weight: bold;
+}
+
+
+h1 {
+    color: var(--blue-isep);
+    font-size: 200%;
+    font-weight: bold;
+    margin-top: 1em;
+    margin-bottom: 1em;
+
+}
+
+h2  {
+    color: var(--blue-isep);
+    font-weight: bold;
+    font-size: 150%;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+label{
+    margin-bottom: 2%;
+}
+
+input{
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+p {
+    line-height: 130%;
+    display: block;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    text-align: start;
+}
+
+button{
+    padding: 8px 12px 8px 12px;
+    background-color: var(--blue-isep);
+    color: white;
+    border: solid;
+    border-radius: 12px;
+}
+
+button:hover{
+    border-color: var(--orange-isep);
+}
+
+textarea{
+    margin-top: 2%;
+}
+
+.warning{
+    color : red;
+    font-weight: bold;
+}
+
+/*
+    Danger symbol : &#9888;
+    Non happy symbol : &#9785;
+*/
+
+.emptyPage{
+    margin: 6%;
+    text-align: center;
+    font-size: x-large;
+}
+
