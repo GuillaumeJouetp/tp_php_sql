@@ -53,7 +53,7 @@ switch ($function) {
         }
         if(!isAPassword($_POST_SEC['pass'])){
             $Validation = false;
-            $error = $danger." Veuillez entrer un mot de passe d'au moins 8 caractères (un chiffre et une majuscule) '.$danger";
+            $error = $danger." Veuillez entrer un mot de passe d'au moins 8 caractères (un chiffre et une majuscule)".$danger;
         }
         // Verifie si le mot de passe et la confirmation sont les mêmes
         if($_POST_SEC['passConf'] != $_POST_SEC['pass']){
@@ -70,8 +70,11 @@ switch ($function) {
             $dataInscription['pass']= cryptage($_POST_SEC['pass']);
 
             insertion($bdd,$dataInscription, 'users');
+            $userDatas = getId($bdd, 'users', $_POST_SEC['mail']);
+
             $_SESSION['user_name']=$_POST_SEC['name'];
             $_SESSION['user_last_name']=$_POST_SEC['last_name'];
+            $_SESSION["user_id"]=$userDatas['id'];
             header('location: index.php');
         }
         else{
@@ -120,6 +123,7 @@ switch ($function) {
             $dataSubject = array();
             $dataSubject['content'] = $_POST_SEC['content'];
             $dataSubject['date'] = date("Y-m-d H:i:s");
+            $dataSubject['time'] = date("H:i");
             $dataSubject['user_id'] = $_SESSION['user_id'];
             insertion($bdd, $dataSubject, 'subjects');
             header('location: index.php');
@@ -127,6 +131,24 @@ switch ($function) {
         else{
             $vue='accueil';
             $error='Inscrivez vous au forum pour pouvoir poster un sujet !';
+        }
+        break;
+
+    case 'postResponse':
+        if(isUserConnected()) {
+            /*On ajoute le contenue de la réponse au sujet corespondant à la bdd*/
+            $dataResponse = array();
+            $dataResponse['content'] = $_POST_SEC['content'];
+            $dataResponse['date'] = date("Y-m-d H:i:s");
+            $dataResponse['time'] = date("H:i");
+            $dataResponse['user_id'] = $_SESSION['user_id'];
+            $dataResponse['subject_id'] = $_GET['subject_id'];
+            insertion($bdd, $dataResponse, 'responses');
+            header('location: index.php?function=bouttonActualite');
+        }
+        else{
+            $vue='sujet';
+            $error='Inscrivez vous au forum pour pouvoir poster une réponse !';
         }
         break;
 

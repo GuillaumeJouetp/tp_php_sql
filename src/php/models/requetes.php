@@ -128,21 +128,31 @@ function isEmailAlreadyExist(PDO $bdd, string $email): bool {
  */
 function get_subjects(PDO $bdd, int $n): array {
 
-    $statement = $bdd->prepare('SELECT subjects.content,subjects.date,users.name FROM subjects INNER JOIN users ON subjects.user_id = users.id ORDER BY date DESC LIMIT '.$n);
+    $statement = $bdd->prepare('SELECT subjects.category, subjects.time, subjects.content AS subjectContent,subjects.date AS subjectDate,users.name AS subjectUserName,subjects.id AS subject_id
+                                         FROM subjects 
+                                         INNER JOIN users 
+                                         ON subjects.user_id = users.id 
+                                         ORDER BY date DESC, time DESC
+                                         LIMIT '.$n);
     $statement->execute();
     return $statement->fetchAll();
 }
 
 /**
- * Retourne un array contenant les n derniers sujets ajoutés (avec le contenu, le prenom de la personne qui l'a ecrit en utilisant une jointure de table, la date du post et le contenue des réponses en utilisant une jointure de table double)
+ * Retourne un array contenant les n dernieres réponses ajoutées : triple jointure de table
  * @param PDO $bdd
  * @param int $n
  * @return array
  */
 
-function get_subjects_and_responses(PDO $bdd, int $n): array {
+function get_responses(PDO $bdd): array {
 
-    $statement = $bdd->prepare('SELECT subjects.content,subjects.date,users.name FROM subjects INNER JOIN users ON subjects.user_id = users.id ORDER BY date DESC LIMIT '.$n);
+    $statement = $bdd->prepare('SELECT responses.time,users.name AS responseUserName,responses.content AS responseContent,responses.date AS responseDate, subjects.id AS subject_id
+                                         FROM ((responses
+                                         INNER JOIN users ON responses.user_id = users.id)
+                                         INNER JOIN subjects ON responses.subject_id = subjects.id)
+                                         ORDER BY responses.date DESC, time DESC
+                                         ');
     $statement->execute();
     return $statement->fetchAll();
 }

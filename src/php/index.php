@@ -26,6 +26,8 @@ include "views/fonctions.php";
 
 /* On évite la faille xss POUR TOUTES LES PAGES, On utilisera à l'avenir $_POST_SEC à la place de $_POST */
 $_POST_SEC = secuTab($_POST);
+/*On précise le fuseau horaire pour toutes les fonctions relatives au temps*/
+date_default_timezone_set('Europe/Paris');
 
 /* On identifie le contrôleur à appeler dont le nom est contenu dans cible passé en GET */
 if(isset($_GET['cible']) && !empty($_GET['cible'])) {

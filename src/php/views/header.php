@@ -15,6 +15,7 @@
     <!-- Importation du style commmun à toutes les pages-->
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/formControl.css">
     <!-- Importation dynamique du style spécifique à la page-->
     <link rel="stylesheet" href="../css/<?php echo $vue?>.css">
 

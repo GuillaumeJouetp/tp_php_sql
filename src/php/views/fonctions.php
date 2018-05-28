@@ -47,8 +47,8 @@ function displaySubjects($bdd,$n){
     foreach ($subjects as $key=>$elm){
         echo(
             "<p>"
-                . $subjects[$key]['content'] ." <br>
-                <em>Posté par</em> <strong>". $subjects[$key]['name'] ."</strong> <em>le ". $subjects[$key]['date'] ." </em>
+                . $subjects[$key]['subjectContent'] ." <br>
+                <em>Posté par</em> <strong>". $subjects[$key]['subjectUserName'] ."</strong> <em>le ". $subjects[$key]['subjectDate'] ." à " . $subjects[$key]['time'] . " </em>
             </p>"
         );
     }
@@ -56,22 +56,42 @@ function displaySubjects($bdd,$n){
 
 function displaySubjectsAndResponse($bdd,$n){
     /*Récupère les n derniers sujets ajouté sa la bdd ainsi que leurs réponses*/
-    $subjects = recupereSubjects($bdd,$n);
-    foreach ($subjects as $key=>$elm){
-        echo(
-            "<p>"
-            . $subjects[$key]['content'] ." <br>
-                <em>Posté par</em> <strong>". $subjects[$key]['name'] ."</strong> <em>le ". $subjects[$key]['date'] ." </em>
-            </p>"
-            ."<form action=\"index.php?cible=mainController&function=postResponse\" method=\"post\">
-                <label> <span> Votre réponse : </span>
-                    <br>
-                    <textarea cols=\"100\" rows=\"10\" name=\"content\">Votre réponse</textarea>
-                </label>
-                    <br>
-                <button type=\"submit\">Envoyer</button>
-                <br>
-            </form>"
-        );
+    $subjects = recupereSubjects($bdd, $n);
+    $responses = recupereResponses($bdd);
+    foreach ($subjects as $key => $elm) {
+                /*Affichage du sujet*/
+                echo(
+                    "<div class='subjectWrapper'><p>"
+                        . $subjects[$key]['subjectContent'] . " <br>
+                            <em>Posté par</em> <strong>" . $subjects[$key]['subjectUserName'] . "</strong> <em>le " . $subjects[$key]['subjectDate'] . " à " . $subjects[$key]['time'] . "  </em> <br>
+                            <em>Catégorie : </em> <strong>" . $subjects[$key]['category'] . "</strong>
+                    </p>"
+                    );
+                foreach ($responses as $keyR => $elmR) {
+                    if ($subjects[$key]['subject_id']===$responses[$keyR]['subject_id']) {
+                        /*Affichage des réponses*/
+                        echo(
+                            "<p class='marginleft'>
+                                   >> " .$responses[$keyR]['responseContent']. " <br>
+                                   <em>Posté par</em> <strong>" . $responses[$keyR]['responseUserName'] . "</strong> <em>le " . $responses[$keyR]['responseDate'] . " à " . $responses[$keyR]['time'] . " </em>
+                               </p>"
+                        );
+                    }
+                }
+                $get = $subjects[$key]['subject_id'];
+                /*Affichage de la réponse*/
+                echo("
+                     <form class='marginleft' action=\"index.php?cible=mainController&function=postResponse&subject_id=$get\" method=\"post\">
+                         <label> <span> Votre réponse : </span>
+                             <br>
+                             <textarea cols=\"100\" rows=\"10\" name=\"content\">Votre réponse</textarea>
+                         </label>          
+                         <br>
+                         <button type=\"submit\">Envoyer</button>
+                         <br>
+                     </form>
+                    </div>"
+                );
+
     }
 }

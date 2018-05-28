@@ -19,8 +19,7 @@
 
     </article>
     <aside>
-        <?php displayConnexion();
-        //include 'connexion.php'?>
+        <?php displayConnexion(); ?>
     </aside>
 </section>
 
@@ -38,9 +37,8 @@
         </form>
     </article>
     <aside>
-        <h2>Sujets en cours</h2>
+        <h2>Les 4 derniers sujets en cours</h2>
         <?php
-        //displaySubjects($bdd,4);
         displaySubjects($bdd,4);
         ?>
     </aside>
