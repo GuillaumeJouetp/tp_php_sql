@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  ven. 25 mai 2018 à 12:33
+-- Généré le :  lun. 28 mai 2018 à 21:34
 -- Version du serveur :  5.7.19
 -- Version de PHP :  7.1.9
 
@@ -33,20 +33,23 @@ CREATE TABLE IF NOT EXISTS `responses` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `content` text NOT NULL,
   `date` date NOT NULL,
+  `time` time NOT NULL,
   `subject_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `responses`
 --
 
-INSERT INTO `responses` (`id`, `content`, `date`, `subject_id`) VALUES
-(1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pulvinar gravida dapibus. Vivamus eu tristique neque. Sed quam massa, posuere non efficitur nec, molestie non sem.', '2018-05-25', 1),
-(2, 'ellentesque commodo convallis turpis eu vehicula. Nulla nec purus non quam ultricies interdum. Vestibulum dapibus posuere lorem et commodo. Aliquam in rhoncus lacus. ', '2018-05-24', 1),
-(3, 'Ut non elit pharetra, lobortis felis in, imperdiet metus. Nunc rhoncus tincidunt libero, in dapibus dolor consequat sit amet. Suspendisse auctor diam ut tempor feugiat.', '2018-05-22', 2),
-(4, 'Maecenas cursus nisi quis aliquet dictum. Morbi consectetur ac tortor id faucibus. Cras ultrices turpis nec pellentesque dictum. Duis malesuada turpis justo, quis dapibus nisl vestibulum at.', '2018-05-14', 3),
-(5, 'Morbi consectetur dolor id felis auctor, ut pellentesque odio viverra. Curabitur aliquet vitae leo ac vulputate. Sed quis tempus arcu, id facilisis risus. Cras auctor risus vel orci facilisis', '2018-05-15', 3);
+INSERT INTO `responses` (`id`, `content`, `date`, `time`, `subject_id`, `user_id`) VALUES
+(14, 'Tu ne perds rien pour attendre !', '2018-05-28', '13:30:00', 4, 14),
+(13, 'Je vais te détruire !', '2018-05-28', '07:24:00', 2, 14),
+(12, 'On s\'entraîne quand tu veux !', '2018-05-28', '19:19:00', 2, 11),
+(11, 'Tu rêves mon pote.', '2018-05-28', '10:00:00', 4, 11),
+(15, 'J\'en ai une en ma possession haha !!', '2018-05-28', '20:03:39', 1, 14),
+(17, 'Up', '2018-05-28', '20:54:00', 3, 13);
 
 -- --------------------------------------------------------
 
@@ -58,20 +61,22 @@ DROP TABLE IF EXISTS `subjects`;
 CREATE TABLE IF NOT EXISTS `subjects` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `content` text NOT NULL,
+  `category` varchar(100) NOT NULL DEFAULT 'Autre',
   `date` date NOT NULL,
+  `time` time NOT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `subjects`
 --
 
-INSERT INTO `subjects` (`id`, `content`, `date`, `user_id`) VALUES
-(1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur suscipit nisl et massa bibendum.', '2018-04-16', 11),
-(2, 'Curabitur mattis metus eget lacus consequat mollis. Nulla mattis neque quam, eu dictum.', '2018-04-16', 12),
-(3, 'Sed ullamcorper diam et lectus pulvinar lobortis. Vivamus interdum velit a libero posuere. ', '2018-04-17', 13),
-(4, 'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis', '2018-04-18', 14);
+INSERT INTO `subjects` (`id`, `content`, `category`, `date`, `time`, `user_id`) VALUES
+(1, 'Je suis a la recherche des 7 boules de cristal. Si vous en avez vu une faite moi signe dans les commentaires. ', 'Voyage', '2018-04-16', '10:21:00', 11),
+(2, 'Qui veut me combattre ?!', 'Combat', '2018-04-16', '13:34:00', 12),
+(3, 'J\'aimerais savoir si quelqu\'un connait une technique infaillible qui me permettrait de grandir ? Merci', 'Autre', '2018-04-02', '17:47:37', 13),
+(4, 'Une idée de comment je pourrais détruire Sangoku ?', 'Combat', '2018-04-18', '05:34:14', 14);
 
 -- --------------------------------------------------------
 
@@ -87,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `mail` varchar(100) NOT NULL,
   `pass` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `users`
@@ -98,8 +103,7 @@ INSERT INTO `users` (`id`, `name`, `last_name`, `mail`, `pass`) VALUES
 (11, 'Sangoku', 'Hatake', 'sangoku@planetvegeta.com', '$2y$10$HfIy0JNPkwmEvru7HmW.huUqUKkqvkQ2asJKFlXPQP40yDoCQODlq'),
 (12, 'Sangohan', 'Miroshi', 'sangohan@terre.com', '$2y$10$zmFUEQrAz.EENhoZIEemHenN7nj.fBLyM1y1Jc11fo5S/Wrz2S0A.'),
 (13, 'Krillin', 'Dbz', 'krillin@terre.com', '$2y$10$JiolrNKm1DzMrVSEWfMH9OLoAgU/vR4NulaohbEjgYKKW6X3zWNbG'),
-(14, 'Freezer', 'Oda', 'freezer@namek.com', '$2y$10$NKpQg38SIhiMXQLc7Q9nROEXsXhALNSqH4AudCqo0Q43RXksIKwT.'),
-(15, 'EFEF', 'ZFEZFZEF', 'fezfze@ezfzef.com', '$2y$10$fcDOXYbp9rXDRY0z0I.gd.B2rcwFkjYC9OKvTODZHlGfHvEyQPuoy');
+(14, 'Freezer', 'Oda', 'freezer@namek.com', '$2y$10$NKpQg38SIhiMXQLc7Q9nROEXsXhALNSqH4AudCqo0Q43RXksIKwT.');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
