@@ -1,4 +1,5 @@
 <?php
+/*On inclue les requêtes sql*/
 include "models/requetes.php";
 
 /*Fonctions de debugs - start*/
@@ -77,7 +78,7 @@ function secu($myInput){
 }
 
 /**
- * Sécurise un tableau à la faille XSS
+ * Sécurise un tableau à la faille XSS (sera notemment utilisé pour sécurise $_POST une bonne fois pour toute)
  * @param array $tab
  * @return array
  */
@@ -91,59 +92,3 @@ function secuTab($tab){
     return $myDic;
 }
 
-/**
- * formatage de la date us en fr
- * @param PDO $bdd
- * @param int $n
- * @return array
- */
-function recupereSubjects($bdd,$n){
-    $subjects = get_subjects($bdd,$n);
-    foreach ($subjects as $key=>$elm){
-
-        $subjects[$key]['subjectDate'] = dateFr($subjects[$key]['subjectDate']);
-        $subjects[$key]['time'] = heureFr($subjects[$key]['time']);
-
-    }
-    return $subjects;
-}
-
-/**
- * formatage de la date us en fr
- * @param PDO $bdd
- * @param int $n
- * @return array
- */
-function recupereResponses($bdd){
-    $responses = get_responses($bdd);
-    foreach ($responses as $key=>$elm){
-
-        $responses[$key]['responseDate'] = dateFr($responses[$key]['responseDate']);
-        $responses[$key]['time'] = heureFr($responses[$key]['time']);
-
-    }
-    return $responses;
-}
-
-
-/**
- * Formate une date US en date FR
- * @param string $dateUS
- * @return string
- */
-function dateFr($dateUS){
-    $dateFR = strftime('%d-%m-%Y',strtotime($dateUS));
-    $dateFRslash=str_replace (  '-' , '/' ,$dateFR);
-    return $dateFRslash;
-}
-
-/**
- * Formate une date US en date FR
- * @param string $heureUS
- * @return string
- */
-function heureFr($heureUS){
-    $heureFr1 = substr_replace($heureUS, '', -3, 3);
-    $heureFr2 =str_replace (  ':' , 'h' ,$heureFr1);
-    return $heureFr2;
-}

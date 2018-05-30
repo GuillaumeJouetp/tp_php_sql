@@ -1,11 +1,12 @@
 <?php
 /*
  * Toutes les requêtes de ce fichier sont préparées et vérifiées afin d'éviter les injections SQL
- * Pour les moins vérifiées, il est garentis qu'elles ne peuvent pas être exécutés avec un input utilisateur en paramètre
+ * Pour les moins vérifiées, il est garenti qu'elles ne peuvent pas être exécutés avec un input utilisateur en paramètre
 */
 include "connexionPDO.php";
 
 /**
+ * READ
  * Récupère tous les éléments d'une table
  * @param PDO $bdd
  * @param string $table
@@ -18,7 +19,7 @@ function recupereTous(PDO $bdd, string $table): array {
 
 /**
  * READ
- * Recherche des éléments en fonction des attributs passés en paramètre
+ * Récupère les éléments d'une table en fonction des attributs passés en paramètre
  * @param PDO $bdd
  * @param string $table
  * @param array $attributs
@@ -48,7 +49,7 @@ function recherche(PDO $bdd, string $table, array $attributs): array {
  * CREATE
  * Insère une nouvelle entrée à une table
  * @param PDO $bdd
- * @param array $values (Souvent le $_POST)
+ * @param array $values
  * @param string $table
  * @return boolean
  */
@@ -79,16 +80,16 @@ function insertion(PDO $bdd, array $values, string $table): bool {
 }
 
 /**
- * REMOVE
- * Supprime une entrée dans devices ciblant son id
+ * DELETE
+ * Supprime l'entrée d'une table en ciblant son id
  * @param PDO $bdd
  * @param int $id
- * @param string $table
- * @return boolean
+ * @param array $table
+ * @return bool
  */
-function supprimer(PDO $bdd, int $id): bool{
+function supprimer(PDO $bdd, int $id, array $table): bool{
 
-	$req = $bdd->prepare('DELETE FROM devices WHERE id= :id');
+	$req = $bdd->prepare('DELETE FROM ' . $table . ' WHERE id= :id');
 	$req->bindParam(':id',$id);
     return $req->execute();
 }
@@ -121,40 +122,57 @@ function isEmailAlreadyExist(PDO $bdd, string $email): bool {
 }
 
 /**
- * Retourne un array contenant les n derniers sujets ajoutés (avec le contenu, le prenom de la personne qui l'a ecrit en utilisant une jointure de table et la date du post)
+ * Retourne un array contenant les n derniers sujets ajoutés
+ * Utilisation d'une jointure de table double
  * @param PDO $bdd
  * @param int $n
  * @return array
  */
 function get_subjects(PDO $bdd, int $n): array {
 
-    $statement = $bdd->prepare('SELECT subjects.category, subjects.time, subjects.content AS subjectContent,subjects.date AS subjectDate,users.name AS subjectUserName,subjects.id AS subject_id
-                                         FROM subjects 
-                                         INNER JOIN users 
-                                         ON subjects.user_id = users.id 
-                                         ORDER BY date DESC, time DESC
+    $statement = $bdd->prepare('SELECT subjects.id AS subject_id, subjects.dateTime AS subjectDateTime,MAX(responses.dateTime) AS lastResponseDateTime, subjects.category, subjects.content AS subjectContent,users.name AS subjectUserName
+                                         FROM ((subjects 
+                                         INNER JOIN users ON subjects.user_id = users.id )
+                                         /*Pour aussi récupérer les sujets qui n ont pas encore de réponses on utilise LEFT JOIN*/
+                                         LEFT JOIN responses ON responses.subject_id = subjects.id)
+                                         GROUP BY subjects.id
+                                         ORDER  BY lastResponseDateTime DESC
                                          LIMIT '.$n);
     $statement->execute();
-    return $statement->fetchAll();
+    $return = $statement->fetchAll();
+    return $return;
 }
 
 /**
- * Retourne un array contenant les n dernieres réponses ajoutées : triple jointure de table
+ * Retourne un array contenant les dernieres réponses ajoutées
+ * Utilisation d'une jointure de table double
  * @param PDO $bdd
- * @param int $n
  * @return array
  */
 
 function get_responses(PDO $bdd): array {
 
-    $statement = $bdd->prepare('SELECT responses.time,users.name AS responseUserName,responses.content AS responseContent,responses.date AS responseDate, subjects.id AS subject_id
+    $statement = $bdd->prepare('SELECT responses.dateTime AS responseDateTime,users.name AS responseUserName,responses.content AS responseContent, subjects.id AS subject_id
                                          FROM ((responses
                                          INNER JOIN users ON responses.user_id = users.id)
                                          INNER JOIN subjects ON responses.subject_id = subjects.id)
-                                         ORDER BY responses.date DESC, time DESC
+                                         ORDER BY responses.dateTime ASC
                                          ');
     $statement->execute();
     return $statement->fetchAll();
+}
+
+/**
+ * Retourne le nombre total de sujets stockés dans la bdd
+ * @param PDO $bdd
+ * @return array
+ */
+
+function getNumSubjects(PDO $bdd): array {
+
+    $statement = $bdd->prepare('SELECT COUNT(*) FROM subjects');
+    $statement->execute();
+    return $statement->fetch();
 }
 
 /**

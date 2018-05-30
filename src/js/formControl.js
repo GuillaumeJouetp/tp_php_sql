@@ -36,9 +36,10 @@ function getTooltip(elements) {
 }
 
 
-// Fonctions de vérification du formulaire, elles renvoient "true" si tout est ok
+/* Fonctions de vérification du formulaire, elles renvoient "true" si tout est ok */
 
-var check = {}; // On met toutes nos fonctions dans un objet littéral
+/* On met toutes nos fonctions dans un objet littéral */
+var check = {};
 
 
 
@@ -63,6 +64,7 @@ check['lastName'] = function(id) {
 check['firstName'] = check['lastName'];
 
 check['mail'] = function() {
+    /*Expression régulière pour la vérif de mail*/
     const mailRegex = new RegExp( /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
     var mail = document.getElementById('mail'),
         tooltipStyle = getTooltip(mail).style;
@@ -80,6 +82,7 @@ check['mail'] = function() {
 };
 
 check['pwd1'] = function() {
+    /*Expression régulière pour la vérif de mot de passe : 8 caractère, 1 maj, 1 chiffre*/
     const passRegex = new RegExp(/(?=.*[0-9])[A-Z]|(?=.*[A-Z])[0-9]/);
     var pwd1 = document.getElementById('pwd1'),
         tooltipStyle = getTooltip(pwd1).style;
@@ -96,6 +99,7 @@ check['pwd1'] = function() {
 
 };
 
+/*On vérifie s le premier mdp est le même que le premier*/
 check['pwd2'] = function() {
 
     var pwd1 = document.getElementById('pwd1'),
@@ -117,7 +121,7 @@ check['pwd2'] = function() {
 
 /* Mise en place des événements */
 
-/* Utilisation d'une IIFE pour éviter les variables globales. */
+/* Utilisation d'une IIFE (fonction qui s'appelle dès qu'elle est définie) pour éviter les variables globales. */
 (function() {
 
     var myForm = document.getElementById('myForm'),

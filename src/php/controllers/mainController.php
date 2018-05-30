@@ -121,9 +121,8 @@ switch ($function) {
         if(isUserConnected()) {
             /*On ajoute le contenue du sujet à la bdd*/
             $dataSubject = array();
+            $dataSubject['category'] = $_POST_SEC['category'];
             $dataSubject['content'] = $_POST_SEC['content'];
-            $dataSubject['date'] = date("Y-m-d H:i:s");
-            $dataSubject['time'] = date("H:i");
             $dataSubject['user_id'] = $_SESSION['user_id'];
             insertion($bdd, $dataSubject, 'subjects');
             header('location: index.php');
@@ -139,8 +138,6 @@ switch ($function) {
             /*On ajoute le contenue de la réponse au sujet corespondant à la bdd*/
             $dataResponse = array();
             $dataResponse['content'] = $_POST_SEC['content'];
-            $dataResponse['date'] = date("Y-m-d H:i:s");
-            $dataResponse['time'] = date("H:i");
             $dataResponse['user_id'] = $_SESSION['user_id'];
             $dataResponse['subject_id'] = $_GET['subject_id'];
             insertion($bdd, $dataResponse, 'responses');
@@ -166,3 +163,9 @@ switch ($function) {
 /*On include le header pour la factorisation de code*/
 require "views/header.php";
 include('views/' . $vue . '.php');
+
+
+
+/**/
+
+

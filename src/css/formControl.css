@@ -15,7 +15,8 @@ input {
     padding: 2px;
     border: 1px solid #CCC;
     border-radius: 2px;
-    outline: none; /* Retire les bordures appliquées par certains navigateurs (Chrome notamment) lors du focus des éléments <input> */
+    /* Retire les bordures appliquées par certains navigateurs (Chrome notamment) lors du focus des éléments <input> */
+    outline: none;
 }
 
 input:focus {

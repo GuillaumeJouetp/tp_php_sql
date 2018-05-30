@@ -27,9 +27,17 @@
     <article>
         <h2>Actualités | ISEP</h2>
         <form action="index.php?cible=mainController&function=postSubject" method="post">
-            <label> <span> Votre sujet : </span>
+            <label> <span> Catégorie du nouveau sujet : </span>
+                 <select name="category">
+                     <option value="Combat">Combat</option>
+                     <option value="Voyage" selected>Voyage</option>
+                     <option value="Autre">Autre</option>
+
+                 </select>
+            </label>
                 <br>
-                <textarea cols="50" rows="10" name="content">Votre sujet</textarea>
+            <label>
+                <textarea cols="50" rows="10" name="content" id="sujet">Votre sujet</textarea>
             </label>
             <br>
             <button type="submit">Envoyer</button>
