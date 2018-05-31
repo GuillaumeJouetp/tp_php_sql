@@ -75,10 +75,11 @@ function heureFr(string $heureUS){
  * On formate la date de post des sujets récupérée de la bdd en vue de l'affichage
  * @param PDO $bdd
  * @param int $n
+ * @param $where
  * @return array
  */
-function recupereSubjects($bdd,$n){
-    $subjects = get_subjects($bdd,$n);
+function recupereSubjects($bdd,$n,$where){
+    $subjects = get_subjects($bdd,$n,$where);
     foreach ($subjects as $key=>$elm){
 
         $subjects[$key]['subjectDate'] = dateFr($subjects[$key]['subjectDateTime']);
@@ -108,12 +109,13 @@ function recupereResponses($bdd){
  * Affiche les n derniers sujets auquel un utilisateur a répondu
  * @param PDO $bdd
  * @param int $n
+ * @param $Filter
  * @return void
  */
 
-function displaySubjects($bdd,$n){
+function displaySubjects($bdd,$n,$Filter){
     /*Récupère les n derniers sujets ajouté sa la bdd*/
-    $subjects = recupereSubjects($bdd,$n);
+    $subjects = recupereSubjects($bdd,$n,$Filter);
     foreach ($subjects as $key=>$elm){
         echo(
             "<p>"
@@ -128,12 +130,17 @@ function displaySubjects($bdd,$n){
  * Affiche les n derniers sujets (ainsi que toutes leurs réponses) auquel un utilisateur a répondu
  * @param PDO $bdd
  * @param int $n
+ * @param $Filter
  * @return void
  */
-function displaySubjectsAndResponse($bdd,$n){
+function displaySubjectsAndResponse($bdd,$n,$Filter){
     /*Récupère les n derniers sujets ajouté sa la bdd ainsi que leurs réponses*/
-    $subjects = recupereSubjects($bdd, $n);
+    $subjects = recupereSubjects($bdd, $n,$Filter);
     $responses = recupereResponses($bdd);
+
+    if (empty($subjects)){
+        echo "<span class='aucun'> Aucun sujet ne correspond au(x) filtre(s) appliqué(s)... &#9785; </span>";
+    }
     foreach ($subjects as $key => $elm) {
                 /*Affichage du sujet*/
                 echo(
@@ -169,5 +176,40 @@ function displaySubjectsAndResponse($bdd,$n){
                     </div>"
                 );
 
+    }
+}
+
+/**
+ * Affiche des options html en fonctions des noms présents dans la bdd (la valeur de l'option correspond à l'id de l'utilisateur)
+ * @param PDO $bdd
+ * @return void
+ */
+function displayAuthorsOptions(PDO $bdd){
+    $noms =  rechercheUsersWhoHavePosted($bdd);
+    foreach ($noms as $key=>$elm){
+
+        $name = $elm['name'].' ';
+        $lastName = $elm['last_name'];
+        $user_id = $elm['id'];
+
+        echo("
+            <option value=$user_id>$name $lastName</option>
+        ");
+    }
+}
+
+/**
+ * Affiche des options html en fonctions des catégories présentes dans la bdd (la valeur de l'option correspond au nom de la catégorie)
+ * @param PDO $bdd
+ * @return void
+ */
+function displayCategoryOptions($bdd){
+    $categories =  recherchedDistincitChamp($bdd,'subjects','category');
+    foreach ($categories as $key=>$elm){
+        $category = $elm['category'];
+
+        echo("
+            <option value=$category>$category</option>
+        ");
     }
 }

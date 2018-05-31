@@ -47,7 +47,7 @@
     <aside>
         <h2>Les 4 derniers sujets en cours</h2>
         <?php
-        displaySubjects($bdd,4);
+        displaySubjects($bdd,4, '1=1');
         ?>
     </aside>
 </section>

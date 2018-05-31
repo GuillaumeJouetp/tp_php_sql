@@ -6,6 +6,7 @@
     background-color: #EBEBEB;
     padding: 2%;
     margin: 1%;
+    width: 670px;
 }
 
 .pageWrapper{
@@ -19,4 +20,9 @@ select, input{
 
 .filter{
     margin-top: 5%;
+}
+
+.aucun{
+    color : var(--orange-isep);
+    font-size: x-large;
 }

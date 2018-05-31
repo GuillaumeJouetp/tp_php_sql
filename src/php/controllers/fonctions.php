@@ -38,8 +38,16 @@ function isAnEmail($mail){
  * @return bool
  */
 function isUserConnected(){
-    if (isset($_SESSION['user_name']))
-        return true;
+    return isset($_SESSION['user_name'])?true:false;
+}
+
+/**
+ * Vérifie si l'utilisateur est admin
+ * @param $bdd
+ * @return bool
+ */
+function isUserAdmin($bdd){
+    return isset($_SESSION['user_id']) && rechercheUserStatus($bdd,$_SESSION['user_id'])['status'] ==='admin' ? true:false;
 }
 
 /**

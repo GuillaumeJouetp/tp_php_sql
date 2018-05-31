@@ -26,8 +26,28 @@ switch ($function) {
         break;
 
     case 'bouttonActualite':
+
         /*Cas ou on appuie sur actualité dans le menu*/
         $vue = 'sujet';
+        $where='1=1';
+        /*Cas ou on arrive sur la page sans avoir touché au filtre la requette ne fait pas encore de tri*/
+
+        if(isset($_GET_SEC['author']) && !empty($_GET_SEC['author'])){
+            $authorId = $_GET_SEC['author'];
+            $where.=" and subjects.user_id ='$authorId' ";
+            /*Cas ou le filtre sur l'auteur a été actualisé*/
+        }
+
+        if(isset($_GET_SEC['category']) && !empty($_GET_SEC['category'])) {
+            $category = $_GET_SEC['category'];
+            $where.=" and subjects.category ='$category' ";
+            /*Cas ou le filtre sur la catégorie a été actualisé*/
+        }
+        if(isset($_GET_SEC['date']) && !empty($_GET_SEC['date'])) {
+            $date =  $_GET_SEC['date'];
+            $where.=" and subjects.dateTime < '$date' ";
+            /*Cas ou le filtre sur la date a été actualisé*/
+        }
         break;
 
     case 'bouttonContact':
@@ -129,7 +149,7 @@ switch ($function) {
         }
         else{
             $vue='accueil';
-            $error='Inscrivez vous au forum pour pouvoir poster un sujet !';
+            $error='Connectez-vous au forum pour poster un sujet !';
         }
         break;
 

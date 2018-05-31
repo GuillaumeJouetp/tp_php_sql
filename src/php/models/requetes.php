@@ -122,21 +122,23 @@ function isEmailAlreadyExist(PDO $bdd, string $email): bool {
 }
 
 /**
- * Retourne un array contenant les n derniers sujets ajoutés
+ * Retourne un array contenant les n derniers sujets ajoutés filtré selon la demande utilisateur
  * Utilisation d'une jointure de table double
  * @param PDO $bdd
  * @param int $n
+ * @param string $filtre
  * @return array
  */
-function get_subjects(PDO $bdd, int $n): array {
+function get_subjects(PDO $bdd, int $n, string $filtre): array {
 
     $statement = $bdd->prepare('SELECT subjects.id AS subject_id, subjects.dateTime AS subjectDateTime,MAX(responses.dateTime) AS lastResponseDateTime, subjects.category, subjects.content AS subjectContent,users.name AS subjectUserName
                                          FROM ((subjects 
                                          INNER JOIN users ON subjects.user_id = users.id )
                                          /*Pour aussi récupérer les sujets qui n ont pas encore de réponses on utilise LEFT JOIN*/
                                          LEFT JOIN responses ON responses.subject_id = subjects.id)
-                                         GROUP BY subjects.id
-                                         ORDER  BY lastResponseDateTime DESC
+                                         WHERE '.$filtre.'              
+                                         GROUP BY subjects.id 
+                                         ORDER  BY lastResponseDateTime DESC 
                                          LIMIT '.$n);
     $statement->execute();
     $return = $statement->fetchAll();
@@ -189,3 +191,52 @@ function getPrenom(PDO $bdd, int $id): array {
     return $statement->fetch();
 }
 
+/**
+ * READ
+ * Récupère les valeurs dinstinctes d'un champ d'une table
+ * @param PDO $bdd
+ * @param string $table
+ * @param string $champ
+ * @return array
+ */
+function recherchedDistincitChamp(PDO $bdd, string $table, string $champ): array {
+
+    $statement = $bdd->prepare("SELECT DISTINCT $champ FROM $table");
+    $statement->execute();
+    return $statement->fetchAll();
+
+}
+
+/**
+ * READ
+ * Récupère le nom et prénoms des utilisateurs qui ont postés au moins un sujet sur le forum
+ * @param PDO $bdd
+ * @return array
+ */
+function rechercheUsersWhoHavePosted(PDO $bdd): array {
+
+    $statement = $bdd->prepare("SELECT users.name, users.last_name, users.id
+                                         FROM users
+                                         INNER JOIN subjects ON subjects.user_id= users.id
+                                         /*Pour ne pas récuperer autant de fois le nom qu'il y a de sujets postés par le nom*/
+                                         GROUP BY users.id
+                                         ");
+    $statement->execute();
+    return $statement->fetchAll();
+
+}
+
+/**
+ * READ
+ * Récupère le status d'un utilisateur en ciblant son id
+ * @param PDO $bdd
+ * @param int $id
+ * @return array
+ */
+function rechercheUserStatus(PDO $bdd, int $id): array {
+
+    $statement = $bdd->prepare("SELECT status FROM users WHERE id=$id");
+    $statement->execute();
+    return $statement->fetchAll()[0];
+
+}

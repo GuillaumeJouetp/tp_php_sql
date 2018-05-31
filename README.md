@@ -7,7 +7,7 @@
 - Ce site est un forum 
 - Il est développé en php avec la structure MVC
 - Du fait de sa simplicité il n'y a qu'un unique controleur qui sert à tout faire
-- Le formulaire d'inscription est vérifié en php (coté serveur) pour garantir la sécurité et en js (coté client) pour garantir l'intéractivité
+- Le formulaire d'inscription est vérifié en php (coté serveur) pour garantir la sécurité et en js (coté client) pour garantir l'ergonomie
 
 # Informations sur la base de donnée
 
@@ -20,7 +20,7 @@ La base de donnée est gérée en PDO et est constituée de 3 tables :
 
 - La page accueil permet de se connecter et d'ajouter des sujets au forum (On ne peut ajouter un sujet si on n'est pas connecté). De plus on peut voir un prévisualisation des 4 derniers sujets en cours a coté (sans les réponses et ordonnés par date de dernières réponses)
 - La page inscription permet de s'incrire au forum
-- La page actualité permet de voir les sujets en cours ainsi que leurs réponses (Les sujets sont classés par ordre de dernières réponses). Elle permet aussi de répondre à ces sujets.
+- La page actualité permet de voir les sujets en cours ainsi que leurs réponses (Les sujets sont classés par ordre de dernières réponses). Elle permet aussi de répondre à ces sujets. On peut également appliquer des filtres pour n'afficher que certains sujets (ces filtres sont gérés en get comme demandé)
 - La page contact ne contient rien
 - La page administration ne contient rien
 
@@ -58,5 +58,4 @@ La base de donnée est gérée en PDO et est constituée de 3 tables :
 
 //TODO 
 
-- Implémenter le système de tri sur la page actualité + documenter
-- Implémenter l'actualisation du tri en AJAX + documenter
+- Implémenter l'actualisation du filtre en AJAX + documenter
