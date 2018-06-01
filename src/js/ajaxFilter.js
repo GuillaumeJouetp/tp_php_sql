@@ -10,8 +10,14 @@ $(document).ready(function() {
             url: 'index.php',
             type: 'GET',
             data: donnees,
-            dataType: 'html'
+            dataType: 'html',
+
+            success: function (data) {
+                $("#testAjax").innerHTML = 'test';
+            }
+
         });
+
     });
 });
 

@@ -20,9 +20,9 @@ La base de donnée est gérée en PDO et est constituée de 3 tables :
 
 - La page accueil permet de se connecter et d'ajouter des sujets au forum (On ne peut ajouter un sujet si on n'est pas connecté). De plus on peut voir un prévisualisation des 4 derniers sujets en cours a coté (sans les réponses et ordonnés par date de dernières réponses)
 - La page inscription permet de s'incrire au forum
-- La page actualité permet de voir les sujets en cours ainsi que leurs réponses (Les sujets sont classés par ordre de dernières réponses). Elle permet aussi de répondre à ces sujets. On peut également appliquer des filtres pour n'afficher que certains sujets (ces filtres sont gérés en get comme demandé)
+- La page actualité permet de voir les sujets en cours ainsi que leurs réponses (Les sujets sont classés par ordre de dernières réponses). Elle permet aussi de répondre à ces sujets. On peut également appliquer des filtres pour n'afficher que certains sujets (ces filtres sont gérés en get comme demandé). L'administrateur peut supprimer des sujets ou des réponses comme il le souhaite.
 - La page contact ne contient rien
-- La page administration ne contient rien
+- La page administration ne contient rien pour l'instant, elle indique juste si l'utilisateur est administrateur du forum
 
 
 - Avant de tester le site il faut installer la base de données qui se situe dans src/sql/tpforum.sql
@@ -30,32 +30,32 @@ La base de donnée est gérée en PDO et est constituée de 3 tables :
 - Si vous voulez tester les comptes déjà inscrits voici les identifiants :
 
 
-    Sangoku :
+    Guillaume (admin) :
+    ````
+    mail : guillaume.jouet-pastre@isep.fr
+    mdp  : AZERTYUIOP1
+    ````
+        
+    Sangoku (membre) :
     ````
     mail : sangoku@planetvegeta.com
     mdp  : Jadorelesramens1
     ````
     
-    Sangohan :
+    Sangohan (membre) :
     ````
     mail : sangohan@terre.com
     mdp  : KAMEHAMEHA7
     ````
     
-    Krillin :
+    Krillin (membre) :
     ````
     mail : krillin@terre.com
     mdp  : Jedeviendraisplusfort1jour
     ````
     
-    Freezer :
+    Freezer (membre) :
     ````
     mail : freezer@namek.com
     mdp  : AmoiLes7boulesDeCristals
     ````
-
-
-
-//TODO 
-
-- Implémenter l'actualisation du filtre en AJAX + documenter

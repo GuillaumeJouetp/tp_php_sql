@@ -2,7 +2,9 @@
     <div class="forum">
         <!-- Affichage du nombre de sujets (après filtre) que la page affiche -->
         <h2>Actualités | ISEP  (<?= count(recupereSubjects($bdd, 100,$where)) ?>)</h2>
-        <?php displaySubjectsAndResponse($bdd,100,$where);?>
+        <div id="testAjax">
+            <?php displaySubjectsAndResponse($bdd,100,$where);?>
+        </div>
     </div>
     <aside class="filter">
         <h2>Filtrer :</h2>

@@ -26,3 +26,12 @@ select, input{
     color : var(--orange-isep);
     font-size: x-large;
 }
+
+.responseWrapperr{
+    display: flex;
+}
+
+.inlineBlock{
+    margin-left: 3%;
+    margin-top: 7%;
+}

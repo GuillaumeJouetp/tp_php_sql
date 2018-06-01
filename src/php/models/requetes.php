@@ -84,10 +84,10 @@ function insertion(PDO $bdd, array $values, string $table): bool {
  * Supprime l'entrée d'une table en ciblant son id
  * @param PDO $bdd
  * @param int $id
- * @param array $table
+ * @param string $table
  * @return bool
  */
-function supprimer(PDO $bdd, int $id, array $table): bool{
+function supprimer(PDO $bdd, int $id, string $table): bool{
 
 	$req = $bdd->prepare('DELETE FROM ' . $table . ' WHERE id= :id');
 	$req->bindParam(':id',$id);
@@ -154,7 +154,7 @@ function get_subjects(PDO $bdd, int $n, string $filtre): array {
 
 function get_responses(PDO $bdd): array {
 
-    $statement = $bdd->prepare('SELECT responses.dateTime AS responseDateTime,users.name AS responseUserName,responses.content AS responseContent, subjects.id AS subject_id
+    $statement = $bdd->prepare('SELECT responses.dateTime AS responseDateTime,users.name AS responseUserName,responses.content AS responseContent, subjects.id AS subject_id, responses.id AS response_id
                                          FROM ((responses
                                          INNER JOIN users ON responses.user_id = users.id)
                                          INNER JOIN subjects ON responses.subject_id = subjects.id)

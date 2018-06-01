@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 31 mai 2018 à 21:33
+-- Généré le :  ven. 01 juin 2018 à 09:54
 -- Version du serveur :  5.7.19
 -- Version de PHP :  7.1.9
 
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `responses` (
   `subject_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `responses`
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `subjects` (
   `dateTime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `subjects`
@@ -89,6 +89,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `last_name` varchar(100) NOT NULL,
   `mail` varchar(100) NOT NULL,
   `pass` varchar(100) NOT NULL,
+  `status` varchar(100) NOT NULL DEFAULT 'member',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
@@ -96,12 +97,12 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Déchargement des données de la table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `last_name`, `mail`, `pass`) VALUES
-(10, 'Guillaume', 'Jouet-pastré', 'guillaume.jouet-pastre@isep.fr', '$2y$10$CVkabNdJxSpMOBsge3hfO.gCeSzAszsplMCguUQG4bV/tR2EAvEgq'),
-(11, 'Sangoku', 'Hatake', 'sangoku@planetvegeta.com', '$2y$10$HfIy0JNPkwmEvru7HmW.huUqUKkqvkQ2asJKFlXPQP40yDoCQODlq'),
-(13, 'Krillin', 'Dbz', 'krillin@terre.com', '$2y$10$JiolrNKm1DzMrVSEWfMH9OLoAgU/vR4NulaohbEjgYKKW6X3zWNbG'),
-(14, 'Freezer', 'Oda', 'freezer@namek.com', '$2y$10$NKpQg38SIhiMXQLc7Q9nROEXsXhALNSqH4AudCqo0Q43RXksIKwT.'),
-(12, 'Sangohan ', 'Miroshi', 'sangohan@terre.com', '$2y$10$ygKdmBvPDLcqScZPPJKSDO./tje6/zjMbawgMj/QuVUO1IDkpgy2.');
+INSERT INTO `users` (`id`, `name`, `last_name`, `mail`, `pass`, `status`) VALUES
+(10, 'Guillaume', 'Jouet-pastré', 'guillaume.jouet-pastre@isep.fr', '$2y$10$CVkabNdJxSpMOBsge3hfO.gCeSzAszsplMCguUQG4bV/tR2EAvEgq', 'admin'),
+(11, 'Sangoku', 'Hatake', 'sangoku@planetvegeta.com', '$2y$10$HfIy0JNPkwmEvru7HmW.huUqUKkqvkQ2asJKFlXPQP40yDoCQODlq', 'member'),
+(13, 'Krillin', 'Dbz', 'krillin@terre.com', '$2y$10$JiolrNKm1DzMrVSEWfMH9OLoAgU/vR4NulaohbEjgYKKW6X3zWNbG', 'member'),
+(14, 'Freezer', 'Oda', 'freezer@namek.com', '$2y$10$NKpQg38SIhiMXQLc7Q9nROEXsXhALNSqH4AudCqo0Q43RXksIKwT.', 'member'),
+(12, 'Sangohan ', 'Miroshi', 'sangohan@terre.com', '$2y$10$ygKdmBvPDLcqScZPPJKSDO./tje6/zjMbawgMj/QuVUO1IDkpgy2.', 'member');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

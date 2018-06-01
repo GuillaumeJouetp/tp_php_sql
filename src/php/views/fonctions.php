@@ -154,11 +154,13 @@ function displaySubjectsAndResponse($bdd,$n,$Filter){
                     if ($subjects[$key]['subject_id']===$responses[$keyR]['subject_id']) {
                         /*Affichage des réponses du sujet*/
                         echo(
-                            "<p class='marginleft'>
+                            "<div class='responseWrapperr'><p class='marginleft'>
                                    >> " .$responses[$keyR]['responseContent']. " <br>
                                    <em>Posté par</em> <strong>" . $responses[$keyR]['responseUserName'] . "</strong> <em>le " . $responses[$keyR]['responseDate'] . " à " . $responses[$keyR]['responseTime'] . " </em>
                                </p>"
                         );
+                        displayDeleteResponseButton($bdd,$responses[$keyR]['response_id']);
+                        echo '</div>';
                     }
                 }
                 $get = $subjects[$key]['subject_id'];
@@ -173,8 +175,9 @@ function displaySubjectsAndResponse($bdd,$n,$Filter){
                          <button type=\"submit\">Envoyer</button>
                          <br>
                      </form>
-                    </div>"
-                );
+                    </div>
+                    ");
+                displayDeleteSubjectButton($bdd,$get);
 
     }
 }
@@ -210,6 +213,40 @@ function displayCategoryOptions($bdd){
 
         echo("
             <option value=$category>$category</option>
+        ");
+    }
+}
+
+/**
+ * Affiche le bouton d'administration supprimer le sujet si l'ultilisateur est admin
+ * @param PDO $bdd
+ * @param int $id
+ * @return void
+ */
+
+function displayDeleteSubjectButton($bdd,$id){
+    if(isUserAdmin($bdd)){
+        echo("
+        <form action=\"index.php ?cible=mainController&function=deleteSubject&subject_id=$id\" method=\"post\">
+        <button type=\"submit\">Supprimer le sujet</button>
+        </form>
+        ");
+    }
+}
+
+/**
+ * Affiche le bouton d'administration supprimer la réponse si l'ultilisateur est admin
+ * @param PDO $bdd
+ * @param int $id
+ * @return void
+ */
+
+function displayDeleteResponseButton($bdd,$id){
+    if(isUserAdmin($bdd)){
+        echo("
+        <form action=\"index.php ?cible=mainController&function=deleteResponse&response_id=$id\" method=\"post\">
+        <button class='inlineBlock' type=\"submit\">Supprimer la réponse</button>
+        </form>
         ");
     }
 }

@@ -174,6 +174,17 @@ switch ($function) {
         header('location: index.php');
         break;
 
+    /*Cas accessibles uniquement à l'admin - start*/
+    case 'deleteSubject':
+        supprimer( $bdd,  $_GET_SEC['subject_id'], 'subjects');
+        header('location: index.php?cible=mainController&function=bouttonActualite');
+        break;
+
+    case 'deleteResponse':
+        supprimer( $bdd,  $_GET_SEC['response_id'], 'responses');
+        header('location: index.php?cible=mainController&function=bouttonActualite');
+        break;
+    /*Cas accessibles uniquement à l'admin - end*/
 
     default :
         /* si aucune fonction ne correspond au paramètre function passé en GET */
