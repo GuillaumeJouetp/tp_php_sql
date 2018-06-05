@@ -22,8 +22,7 @@ La base de donnée est gérée en PDO et est constituée de 3 tables :
 - La page inscription permet de s'incrire au forum
 - La page actualité permet de voir les sujets en cours ainsi que leurs réponses (Les sujets sont classés par ordre de dernières réponses). Elle permet aussi de répondre à ces sujets. On peut également appliquer des filtres pour n'afficher que certains sujets (ces filtres sont gérés en get comme demandé). L'administrateur peut supprimer des sujets ou des réponses comme il le souhaite. La modification des messages pour l'admin n'a pas eu le temps d'être traité
 - La page contact ne contient rien
-- La page administration ne contient rien pour l'instant, elle indique juste si l'utilisateur est administrateur du forum
-
+- La page administration contient l'espace d'administration du forum dans lequel on peut supprimer des sujet OU des réponses.
 
 - Avant de tester le site il faut installer la base de données qui se situe dans src/sql/tpforum.sql
 - Si vous voulez tester le site vous pouvez vous creer un compte et ajouter des sujets
