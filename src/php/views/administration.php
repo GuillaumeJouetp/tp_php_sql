@@ -1,4 +1,4 @@
-<span class="emptyPage">Ceci est la page d'administration ! un peu vide n'est-ce pas ... &#9785; </span>
+<span class="emptyPage"> <?= $adminMessage ?> </span>
 <?php if (isUserAdmin($bdd)){
-    echo '<span class="emptyPage">  Vous êtes admin ! <span/>';
+    header("location: index.php?cible=mainController&function=bouttonActualite");
 }

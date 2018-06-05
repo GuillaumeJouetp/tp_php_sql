@@ -14,6 +14,7 @@ $error = '';
 /*Ajout d'icone aux messages d'erreurs parce que c'est fun*/
 $danger='&#9888;';
 
+$adminMessage = '';
 switch ($function) {
     case 'default':
         $title= "Accueil";
@@ -57,6 +58,12 @@ switch ($function) {
 
     case 'bouttonAdministration':
         /*Cas ou on appuie sur inscription dans le menu*/
+        if (isUserAdmin($bdd)) {
+           $adminMessage = '';
+        }
+        else{
+            $adminMessage = "Vous n'avez pas accès à l'espace administrateur";
+        }
         $vue = 'administration';
         break;
 

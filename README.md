@@ -20,7 +20,7 @@ La base de donnée est gérée en PDO et est constituée de 3 tables :
 
 - La page accueil permet de se connecter et d'ajouter des sujets au forum (On ne peut ajouter un sujet si on n'est pas connecté). De plus on peut voir un prévisualisation des 4 derniers sujets en cours a coté (sans les réponses et ordonnés par date de dernières réponses)
 - La page inscription permet de s'incrire au forum
-- La page actualité permet de voir les sujets en cours ainsi que leurs réponses (Les sujets sont classés par ordre de dernières réponses). Elle permet aussi de répondre à ces sujets. On peut également appliquer des filtres pour n'afficher que certains sujets (ces filtres sont gérés en get comme demandé). L'administrateur peut supprimer des sujets ou des réponses comme il le souhaite.
+- La page actualité permet de voir les sujets en cours ainsi que leurs réponses (Les sujets sont classés par ordre de dernières réponses). Elle permet aussi de répondre à ces sujets. On peut également appliquer des filtres pour n'afficher que certains sujets (ces filtres sont gérés en get comme demandé). L'administrateur peut supprimer des sujets ou des réponses comme il le souhaite. La modification des messages pour l'admin n'a pas eu le temps d'être traité
 - La page contact ne contient rien
 - La page administration ne contient rien pour l'instant, elle indique juste si l'utilisateur est administrateur du forum
 
